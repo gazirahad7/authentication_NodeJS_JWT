@@ -1,0 +1,60 @@
+<%- include("../template/header"); -%>
+
+								<div class="container mt-5">
+	<h4 class="text-center">Login Form</h4>
+
+	<div class="row">
+		<div class="col-md-6 offset-3">
+			<form action="/login" method="POST">
+				<div class="form-floating mb-3">
+					<input
+						type="email"
+						class="<%= error.mail ? 'error' : '' %>  form-control"
+						id="floatingInput"
+						name="mail"
+						placeholder="name@example.com"
+						value="<%= value.mail ? value.mail : '' %>"
+					/>
+					<label for="floatingInput">Email address</label>
+					<p class="text-danger p-2"><%= error.mail && error.mail %> </p>
+				</div>
+				<div class="form-floating">
+					<input
+						type="password"
+						class="<%= error.password ? 'error' : '' %> form-control"
+						name="password"
+						id="floatingPassword"
+						placeholder="Password"
+						value="<%= value.password ? value.password : '' %>"
+					/>
+					<label for="floatingPassword">Password</label>
+					<p class="text-danger p-2">
+						<%= error.password && error.password %> 
+					</p>
+				</div>
+
+				<button type="submit" class="btn btn-info mt-3 rounded-pill">
+					Submit
+				</button>
+				<a href="/register"
+					><button type="button" class="btn mt-3 btn-primary rounded-pill">
+						Register
+					</button></a
+				>
+			</form>
+		</div>
+	</div>
+</div>
+<%- include("../template/footer"); -%>
+<script >
+  let auth =  '<%= auth %>';
+  console.log(auth)
+  if(auth==="true"){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Authentication failed',
+      footer: '<a href="/register">Don\'t have an account?</a>'
+    })
+  }
+</script>

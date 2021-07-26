@@ -1,0 +1,90 @@
+<%- include("../template/header"); -%>
+
+<div class="container mt-5">
+	<h4 class="text-center">Register Form.</h4>
+
+	<div class="row">
+		<div class="col-md-6 offset-3">
+			<form action="/register" method="POST">
+				<div class="form-floating mb-3">
+					<input
+						type="text"
+						class="<%= error.userName ? 'error' : '' %>  form-control"
+						id="floatingInput"
+						name="userName"
+						placeholder="name@example.com"
+						value="<%= value.userName ? value.userName : '' %>"
+					/>
+					<label for="floatingInput">Name</label>
+					<p class="text-danger p-2"><%= error.userName && error.userName %> </p>
+				</div>
+				<div class="form-floating mb-3">
+					<input
+						type="email"
+						class="<%= error.userMail ? 'error' : '' %> form-control"
+						id="floatingInput"
+						name="userMail"
+						placeholder="name@example.com"
+						value="<%= value.userMail ? value.userMail : '' %> "
+					/>
+				  <label for="floatingInput">Email address</label>
+					<p class="text-danger p-2"><%= error.userMail && error.userMail %> </p>
+				</div>
+			
+
+				<div class="form-floating">
+					<input
+						type="password"
+						class=" <%= error.userPass ? 'error' : '' %> form-control"
+						name="userPass"
+						id="floatingPassword"
+						placeholder="Password"
+						value="<%= value.userPass ? value.userPass : '' %>"
+					/>
+					<label for="floatingPassword">Password</label>
+					<p class="text-danger p-2"><%= error.userPass && error.userPass %> </p>
+				</div>
+
+				<button type="submit" class="btn btn-info mt-3 rounded-pill">
+					Submit
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+	<%- include("../template/footer"); -%>
+
+<script >
+  let auth =  '<%= auth %>';
+  let registerFail =  '<%= registerFail %>';
+
+ if(auth==="true" ){
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'Signed in successfully'
+})
+setTimeout(function(){ window.location='/' }, 3000);
+ }
+ if(registerFail==="true" ){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'This email already exist',
+      footer: '<a href="/login">Have an account?</a>'
+    })
+  }
+ 
+</script>
